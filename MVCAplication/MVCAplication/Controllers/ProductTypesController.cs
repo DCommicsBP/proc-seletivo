@@ -35,7 +35,6 @@ namespace MVCAplication.Controllers
             }
             return View(productType);
         }
-
         // GET: ProductTypes/Create
         public ActionResult Create()
         {

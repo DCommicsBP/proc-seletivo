@@ -150,6 +150,10 @@
     <Compile Include="Migrations\201905311758584_adding.Designer.cs">
       <DependentUpon>201905311758584_adding.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905311904158_atualizeSalesTwo.cs" />
+    <Compile Include="Migrations\201905311904158_atualizeSalesTwo.Designer.cs">
+      <DependentUpon>201905311904158_atualizeSalesTwo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Products.cs" />
@@ -242,6 +246,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905311758584_adding.resx">
       <DependentUpon>201905311758584_adding.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905311904158_atualizeSalesTwo.resx">
+      <DependentUpon>201905311904158_atualizeSalesTwo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

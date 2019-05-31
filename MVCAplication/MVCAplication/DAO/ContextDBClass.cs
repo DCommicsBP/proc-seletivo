@@ -10,7 +10,7 @@ namespace MVCAplication.DAO
 {
     public class ContextDBClass: DbContext
     {
-        public ContextDBClass() : base("Base03")
+        public ContextDBClass() : base("Base02")
         {
         }
 

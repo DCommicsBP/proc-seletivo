@@ -18,7 +18,7 @@ namespace MVCAplication.Controllers
         // GET: Sales
         public ActionResult Index()
         {
-            var sales = db.Sales.Include(s => s.Cust);
+            var sales = db.Sales.Include(s => s.Customer);
             return View(sales.ToList());
         }
 
@@ -49,7 +49,7 @@ namespace MVCAplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,IsPending,CustomerID,TotalValue")] Sales sales)
+        public ActionResult Create([Bind(Include = "ID,IsPending,TotalValue,CustomerID")] Sales sales)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +83,7 @@ namespace MVCAplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,IsPending,CustomerID,TotalValue")] Sales sales)
+        public ActionResult Edit([Bind(Include = "ID,IsPending,TotalValue,CustomerID")] Sales sales)
         {
             if (ModelState.IsValid)
             {
