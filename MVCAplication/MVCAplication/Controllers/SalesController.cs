@@ -132,12 +132,18 @@ namespace MVCAplication.Controllers
         }
 
 
-        public ActionResult ListProducts()
+        public string ListProducts()
         {
             var products = db.Products.Include(p => p.Measure).Include(p => p.ProductType);
-            var json = new JavaScriptSerializer().Serialize(products.ToList());
-
-            return Json(json, JsonRequestBehavior.AllowGet);
+            var j = products.ToList();
+            var productList = new List<Product>(); 
+            foreach (var item in j)
+            {
+                productList.Add(item);
+            }
+            var json = new JavaScriptSerializer().Serialize(productList);
+            return json.ToString();
         }
     }
+  
 }
