@@ -177,3 +177,6 @@ C:\Users\daione.pavan\Documents\Git\proc\MVCAplication\MVCAplication\obj\Debug\M
 C:\Users\daione.pavan\Documents\Git\proc\MVCAplication\MVCAplication\obj\Debug\MVCAplication.csproj.GenerateResource.cache
 C:\Users\daione.pavan\Documents\Git\proc\MVCAplication\MVCAplication\obj\Debug\MVCAplication.Migrations.adding.resources
 C:\Users\daione.pavan\Documents\Git\proc\MVCAplication\MVCAplication\obj\Debug\MVCAplication.Migrations.atualizeSalesTwo.resources
+C:\Users\daione.pavan\Documents\Git\proc\MVCAplication\MVCAplication\obj\Debug\MVCAplication.Migrations.atualizeSalesThree.resources
+C:\Users\daione.pavan\Documents\Git\proc\MVCAplication\MVCAplication\obj\Debug\MVCAplication.Migrations.atualizeSalesFour.resources
+C:\Users\daione.pavan\Documents\Git\proc\MVCAplication\MVCAplication\obj\Debug\MVCAplication.Migrations.atualizeSalesFive.resources

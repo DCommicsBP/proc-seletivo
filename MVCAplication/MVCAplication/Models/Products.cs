@@ -21,6 +21,7 @@ namespace MVCAplication.Models
         [ForeignKey("ProductType")]
         public int ProductTypeID { get; set; }
 
+        public virtual ICollection<Sales> Sales { get; set; }
         public virtual Measure Measure { get; set; }
         public virtual ProductType ProductType { get; set; }
     }

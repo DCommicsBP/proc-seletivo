@@ -154,6 +154,18 @@
     <Compile Include="Migrations\201905311904158_atualizeSalesTwo.Designer.cs">
       <DependentUpon>201905311904158_atualizeSalesTwo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905311944380_atualizeSalesThree.cs" />
+    <Compile Include="Migrations\201905311944380_atualizeSalesThree.Designer.cs">
+      <DependentUpon>201905311944380_atualizeSalesThree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905311952491_atualizeSalesFour.cs" />
+    <Compile Include="Migrations\201905311952491_atualizeSalesFour.Designer.cs">
+      <DependentUpon>201905311952491_atualizeSalesFour.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905312001588_atualizeSalesFive.cs" />
+    <Compile Include="Migrations\201905312001588_atualizeSalesFive.Designer.cs">
+      <DependentUpon>201905312001588_atualizeSalesFive.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Products.cs" />
@@ -172,6 +184,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\Customized\SalesRequires.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -249,6 +262,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905311904158_atualizeSalesTwo.resx">
       <DependentUpon>201905311904158_atualizeSalesTwo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905311944380_atualizeSalesThree.resx">
+      <DependentUpon>201905311944380_atualizeSalesThree.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905311952491_atualizeSalesFour.resx">
+      <DependentUpon>201905311952491_atualizeSalesFour.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905312001588_atualizeSalesFive.resx">
+      <DependentUpon>201905312001588_atualizeSalesFive.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using MVCAplication.DAO;
 using MVCAplication.Models;
 
@@ -19,7 +20,7 @@ namespace MVCAplication.Controllers
         public ActionResult Index()
         {
             var sales = db.Sales.Include(s => s.Customer);
-            return View(sales.ToList());
+            return Json(sales.ToList());
         }
 
         // GET: Sales/Details/5
@@ -128,6 +129,15 @@ namespace MVCAplication.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        public ActionResult ListProducts()
+        {
+            var products = db.Products.Include(p => p.Measure).Include(p => p.ProductType);
+            var json = new JavaScriptSerializer().Serialize(products.ToList());
+
+            return Json(json, JsonRequestBehavior.AllowGet);
         }
     }
 }

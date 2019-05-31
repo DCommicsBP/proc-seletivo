@@ -62,3 +62,20 @@
 }
 
 </table>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+<script>
+
+    console.log('@Url.Action("Index", "Products") --- ')
+    var getProducts = function () {
+        $.get('@Url.Action("ListProducts", "Sales")').then(function (response) {
+            console.log(response);
+        }).catch(function (error) {
+            console.log(error);
+        });
+
+    }
+    getProducts(); 
+
+</script>

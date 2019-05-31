@@ -21,6 +21,7 @@ namespace MVCAplication.Models
 
         public virtual Customer Customer { get; set; }
 
-        public virtual List<Product> Product { get; set; }
+        [ForeignKey("Sales_Products")]
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

@@ -20,8 +20,19 @@ namespace MVCAplication.DAO
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Entity<Product>()
+                .HasMany<Sales>(s => s.Sales)
+                .WithMany(c => c.Products)
+                .Map(cs =>
+                {
+                    cs.MapLeftKey("SalesRefId");
+                    cs.MapRightKey("ProductRefId");
+                    cs.ToTable("ProductSales");
+                });
+
+           // modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
+
 
         public System.Data.Entity.DbSet<MVCAplication.Models.Sales> Sales { get; set; }
 
