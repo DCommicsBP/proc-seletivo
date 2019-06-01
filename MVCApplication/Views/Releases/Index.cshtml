@@ -1,0 +1,97 @@
+﻿@model IEnumerable<MVCAplication.Models.Release>
+
+@{
+    var startD = new DateTime();
+    var endD = new DateTime();
+
+
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Releases</h2>
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <div class="form-group form-group-sm">
+            <div class="col-md-8">
+                Filter By Date
+                <br />
+                <input type="date" class="form-control" id="start" name="start" placeholder="date initial" value="@(ViewBag.start ?? String.Empty)">            
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="col-md-8">
+                Initial Date:  @Html.TextBox("start", ViewBag.start as string, new { @type = "date", @class = "form-control datepicker" })
+                Final Date:  @Html.TextBox("End", ViewBag.end as string, new { @id = "end", @type = "date", @class = "form-control datepicker", @value= "@ViewBag.end" })
+            </div>
+        </div>
+        <div class="form-group-sm">
+            <div class="col-md-offset-2 col-md-10">
+                @{ 
+                    startD = ViewBag.start;
+                    endD = ViewBag.end;
+                }
+                @Html.ActionLink("Submit", "Index", new { start = ViewBag.start, end = ViewBag.end })
+
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Value)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
+<script>
+</script>
