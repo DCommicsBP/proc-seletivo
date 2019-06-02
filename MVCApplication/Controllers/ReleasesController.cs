@@ -31,7 +31,7 @@ namespace MVCApplication.Controllers
                 Releases = orders;
                 OrderByDateConfirm(orders);
                 ViewData["orders"] = orders;
-                return View(orders);
+                return View("FilterIndex",orders);
             }
             else
             {

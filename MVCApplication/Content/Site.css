@@ -23,8 +23,27 @@ textarea {
     max-width: 280px;
 }
 
+#boxCashMain {
+    position: relative;
+    top: 100px;
+}
+
 #main{
     position: relative; 
     top:100px;
 }
 
+.sizeTypeCash{
+    width:170px;
+    height:170px;
+}
+#boxcashright{
+    position: relative; 
+    right: 400px !important;
+}
+.totalCash{
+    position: relative; 
+    top: -300px;
+    left: 45%;
+    width: 300px;
+}
