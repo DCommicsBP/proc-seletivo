@@ -91,3 +91,5 @@ C:\Users\dayon\Documents\proc\MVCApplication\obj\Debug\MVCApplication.Migrations
 C:\Users\dayon\Documents\proc\MVCApplication\obj\Debug\MVCApplication.Migrations.Release6.resources
 C:\Users\dayon\Documents\proc\MVCApplication\obj\Debug\MVCApplication.Migrations.Release7.resources
 C:\Users\dayon\Documents\proc\MVCApplication\obj\Debug\MVCApplication.Migrations.Release8.resources
+C:\Users\dayon\Documents\proc\MVCApplication\obj\Debug\MVCApplication.Migrations.cash1.resources
+C:\Users\dayon\Documents\proc\MVCApplication\obj\Debug\MVCApplication.Migrations.cash2.resources
