@@ -66,7 +66,6 @@
          
             foreach (var item in Model)
             {
-
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ReleaseDate)
@@ -86,7 +85,6 @@
             <td>
                 @count
             </td>
-
 
             @if (item.Status.ToString() == "Pending" && item.Type.ToString() == "Saida" && item.ReleaseDate < DateTime.Now)
             {
@@ -108,12 +106,10 @@
                 if (count < 0)
                 {
                     <td style="color:black; font-weight:bold;">@count</td>
-
                 }
                 else
                 {
                     <td style="color:greenyellow">@count</td>
-
                 }
 
             }
@@ -127,8 +123,6 @@
 
             @if (item.Status.ToString() == "Pending" && item.Type.ToString() == "Entrada" && item.ReleaseDate > DateTime.Now)
             {
-                //count += item.Value;
-
                 <td style="color:cornflowerblue;font-weight:bold">@count</td>
             }
 
@@ -139,23 +133,19 @@
             </td>
         </tr>
             }
-
-
-
         }
-
-
     </table>
 </section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 <script>
 
-    function changeEnd() {
-        docuemnt.getElementById("enddate").value = document.getElementById("inputEnd").value;
+    var enddate= document.getElementById("enddate");
+    enddate.type = "date"
+    enddate.className = "form-control"
 
-        debugger;
-
-    }
+    var startdate = document.getElementById("startdate");
+    startdate.type = "date"
+    startdate.className = "form-control"
     
 </script>
