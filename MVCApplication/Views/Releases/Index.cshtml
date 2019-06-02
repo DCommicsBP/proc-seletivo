@@ -83,19 +83,28 @@
             <td>
                 @count
             </td>
+
+
             @if (item.Status.ToString() == "Pending" && item.Type.ToString() == "Saida" && item.ReleaseDate < DateTime.Now)
             {
                 <td style="color:red; font-weight:bold; ">
                     @count
                 </td>
             }
+
+            @if (item.Status.ToString() == "Pending" && item.Type.ToString() == "Saida" && item.ReleaseDate > DateTime.Now)
+            {
+                <td style="color:red; ">
+                    @count
+                </td>
+            }
+
             @if (item.Status.ToString() == "Made" && item.Type.ToString() == "Saida")
             {
                 count -= item.Value;
-
                 if (count < 0)
                 {
-                    <td style="color:orange">@count</td>
+                    <td style="color:black; font-weight:bold;">@count</td>
 
                 }
                 else
@@ -119,7 +128,7 @@
 
                 <td style="color:cornflowerblue;font-weight:bold">@count</td>
             }
-            
+
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
