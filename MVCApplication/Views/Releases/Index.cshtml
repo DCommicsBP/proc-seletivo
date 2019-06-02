@@ -5,8 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var teste = Model;
 
-   
-   }
+    var count = 0.0;
+}
 
 <h2>Releases</h2>
 @using (Html.BeginForm())
@@ -21,81 +21,54 @@
         </div>
         <div class="form-group-sm">
             <div class="col-md-offset-2 col-md-10">
-               <button class="btn btn-default" onclick="getByDate()">Submit</button>
+                <button class="btn btn-default" onclick="getByDate()">Submit</button>
 
             </div>
         </div>
     </div>
-    <br />
-    <br />
-    <br />
-    <br />
+
 }
+<section id="releaseSectionList">
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table" id="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ReleaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Value)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                Quantity before transaction
+            </th>
+            <th>
+                Quantity After transaction
+            </th>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table" id="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ReleaseDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Value)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Type)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
-    @{
-        var teste02 = ViewBag.orders;
-        var result = (List<MVCAplication.Models.Release>)ViewData["orders"];
+            <th></th>
+        </tr>
+        @{
+            var teste02 = ViewBag.orders;
+            var result = (List<MVCAplication.Models.Release>)ViewData["orders"];
 
-    }
-
-    @if (result != null)
-    {
-        foreach (var item in result)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReleaseDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Value)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Type)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                </td>
-            </tr>
         }
-    }
-    else
-    {
 
-        foreach (var item in Model)
+        @if (result != null)
         {
-            if (item.Status.ToString() == "Pending" && item.Type.ToString() == "Saida")
+            foreach (var item in result)
             {
-                <tr style="color: red">
+                <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.ReleaseDate)
                     </td>
@@ -118,9 +91,14 @@
                     </td>
                 </tr>
             }
-            else
+        }
+        else
+        {
+
+            foreach (var item in Model)
             {
-                <tr class="">
+
+                <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.ReleaseDate)
                     </td>
@@ -137,25 +115,66 @@
                         @Html.DisplayFor(modelItem => item.Status)
                     </td>
                     <td>
+                        @count
+                    </td>
+                    @if (item.Status.ToString() == "Pending" && item.Type.ToString() == "Saida" && item.ReleaseDate < DateTime.Now)
+                    {
+                        <td style="color:red">
+                            @count
+                        </td>
+                    }
+                    @if (item.Status.ToString() == "Made" && item.Type.ToString() == "Saida" && (item.ReleaseDate < DateTime.Now || item.ReleaseDate >= DateTime.Now))
+                    {
+                        count -= item.Value;
+
+                        if (count < 0)
+                        {
+                            <td style="color:orange">@count</td>
+
+                        }
+                        else
+                        {
+                            <td style="color:greenyellow">@count</td>
+
+                        }
+
+                    }
+
+                    @if (item.Status.ToString() == "Made" && item.Type.ToString() == "Entrada")
+                    {
+                        count += item.Value;
+
+                        <td style="color:blue">@count</td>
+                    }
+
+                    @if (item.Status.ToString() == "Peding" && item.Type.ToString() == "Entrada" && item.ReleaseDate > DateTime.Now)
+                    {
+                        count += item.Value;
+
+                        <td style="color:gold">@count</td>
+                    }
+
+                    <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                         @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                         @Html.ActionLink("Delete", "Delete", new { id = item.ID })
                     </td>
                 </tr>
-
             }
+
+
 
         }
 
-    }
+        }
 
-</table>
+    </table>
+</section>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 <script>
 
-    
-
-async function getByDate() {
+    async function getByDate() {
 
 
         var startd = document.getElementById("startD").value;
@@ -175,7 +194,7 @@ async function getByDate() {
         alert("Você não pode comparar quando a data inicial for maior que a data final");
 
     }
-        
+
         await axios.post('@Url.Action("OrderByDate", "Releases")',
             {
                 startdate: startd,
@@ -187,8 +206,8 @@ async function getByDate() {
     }
 
     var validationDate = function (date) {
-        debugger; 
-        
+        debugger;
+
         function validatioDates(start, end) {
             validationDate(start);
             validationDate(end);

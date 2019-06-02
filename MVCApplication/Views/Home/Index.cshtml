@@ -1,8 +1,94 @@
-﻿@{
+﻿@model IEnumerable<MVCAplication.Models.Release>
+
+@{
     ViewBag.Title = "Home Page";
+    var count = 0.0;
+    var countCashIn = 0.0;
+    var countCashOut = 0.0;
+
+    foreach (var item in Model)
+    {
+        if (item.Type.ToString().Equals("Saida") && item.Status.ToString().Equals("Made") && (item.ReleaseDate.Month == DateTime.Now.Month && item.ReleaseDate.Day < DateTime.Now.Day))
+        {
+
+            countCashOut += item.Value;
+
+        }
+        if (item.Type.ToString().Equals("Entrada") && item.Status.ToString().Equals("Made") && item.ReleaseDate.Month == DateTime.Now.Month)
+        {
+
+            countCashIn += item.Value;
+        }
+
+        if (item.Type.ToString().Equals("Saida") && item.Status.ToString().Equals("Made"))
+        {
+
+            count -= item.Value;
+
+        }
+        if (item.Type.ToString().Equals("Entrada") && item.Status.ToString().Equals("Made"))
+        {
+
+            count += item.Value;
+        }
+
+
+    }
 }
 
-<div id="main">
+
+<div id="main" class="container">
+    <div class="row" id="mainCard" style="width:1200px">
+        <div class="col-sm-12 col-md-12">
+            <div class="thumbnail" id="boxIndex">
+                <div class="caption">
+                    <h2>You must have control over your financial transactions. Enjoy your free time to make this.</h2>
+                    <div class="col-md-4">
+                        <p> Phasellus vitae scelerisque justo. Duis vitae pulvinar leo. Vestibulum dui turpis, ultrices vitae placerat sit amet, venenatis at neque. Pellentesque vehicula tortor nec ante tincidunt tincidunt. Aenean odio enim, laoreet nec aliquam ut, posuere sit amet est. Etiam convallis consequat sem. Vivamus faucibus lobortis sapien id tristique. In quis purus in turpis malesuada vestibulum.</p>
+                        <h3>Your Month</h3>
+                        <div>
+                            <div class="container boxCashMain">
+                                <div class="row">
+                                    <div class="col-sx-6 col-sm-6 col-md-6 ">
+                                        <div class="thumbnail boxCash" style="color:forestgreen">
+                                            <h4>Cash In </h4>
+                                            R$:<h1>@countCashIn</h1>
+                                        </div>
+                                    </div>
+                                    <div class="col-sx-6 col-sm-6 col-md-6 ">
+                                        <div class="thumbnail boxCash" style="color:indianred">
+                                            <h4>Cash Out</h4>
+                                            R$:<h1>@countCashOut</h1>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 totalCash">
+                                        @if (count < 0)
+                                        {
+                                        <div class="" style="color:orangered">
+                                            <h4>Total Value</h4>
+                                            R$:<h1 style="font-size: 100px">@count</h1>
+                                        </div>
+                                        }
+                                        @if (count > 0)
+                                        {
+                                            <div style="color:cornflowerblue">
+                                                <h4>Total Value</h4>
+                                                    R$:<h1 style="font-size: 100px">@count</h1>
+                                            </div>
+                                        }
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 </div>

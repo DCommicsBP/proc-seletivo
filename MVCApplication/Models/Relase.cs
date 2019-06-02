@@ -9,6 +9,7 @@ namespace MVCAplication.Models
 {
     public class Release
     {
+        [Key()]
         public int ID { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime ReleaseDate { get; set; }
