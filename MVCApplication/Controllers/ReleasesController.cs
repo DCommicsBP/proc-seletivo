@@ -19,7 +19,7 @@ namespace MVCApplication.Controllers
         
         public ActionResult Index()
         {
-            var myList = db.Realeses.ToList();
+            var myList = db.Realeses.OrderBy(x => x.ReleaseDate).ToList();
             return View(myList);
         }
 

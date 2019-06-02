@@ -59,114 +59,79 @@
             <th></th>
         </tr>
         @{
-            var teste02 = ViewBag.orders;
-            var result = (List<MVCAplication.Models.Release>)ViewData["orders"];
-
-        }
-
-        @if (result != null)
-        {
-            foreach (var item in result)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReleaseDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Value)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Type)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                    </td>
-                </tr>
-            }
-        }
-        else
-        {
-
+            var result = Model;
+         
             foreach (var item in Model)
             {
 
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReleaseDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Value)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Type)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td>
-                    <td>
-                        @count
-                    </td>
-                    @if (item.Status.ToString() == "Pending" && item.Type.ToString() == "Saida" && item.ReleaseDate < DateTime.Now)
-                    {
-                        <td style="color:red">
-                            @count
-                        </td>
-                    }
-                    @if (item.Status.ToString() == "Made" && item.Type.ToString() == "Saida" && (item.ReleaseDate < DateTime.Now || item.ReleaseDate >= DateTime.Now))
-                    {
-                        count -= item.Value;
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @count
+            </td>
+            @if (item.Status.ToString() == "Pending" && item.Type.ToString() == "Saida" && item.ReleaseDate < DateTime.Now)
+            {
+                <td style="color:red; font-weight:bold; ">
+                    @count
+                </td>
+            }
+            @if (item.Status.ToString() == "Made" && item.Type.ToString() == "Saida")
+            {
+                count -= item.Value;
 
-                        if (count < 0)
-                        {
-                            <td style="color:orange">@count</td>
+                if (count < 0)
+                {
+                    <td style="color:orange">@count</td>
 
-                        }
-                        else
-                        {
-                            <td style="color:greenyellow">@count</td>
+                }
+                else
+                {
+                    <td style="color:greenyellow">@count</td>
 
-                        }
+                }
 
-                    }
+            }
 
-                    @if (item.Status.ToString() == "Made" && item.Type.ToString() == "Entrada")
-                    {
-                        count += item.Value;
+            @if (item.Status.ToString() == "Made" && item.Type.ToString() == "Entrada")
+            {
+                count += item.Value;
 
-                        <td style="color:blue">@count</td>
-                    }
+                <td style="color:green">@count</td>
+            }
 
-                    @if (item.Status.ToString() == "Peding" && item.Type.ToString() == "Entrada" && item.ReleaseDate > DateTime.Now)
-                    {
-                        count += item.Value;
+            @if (item.Status.ToString() == "Pending" && item.Type.ToString() == "Entrada" && item.ReleaseDate > DateTime.Now)
+            {
+                //count += item.Value;
 
-                        <td style="color:gold">@count</td>
-                    }
-
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                    </td>
-                </tr>
+                <td style="color:cornflowerblue;font-weight:bold">@count</td>
+            }
+            
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
             }
 
 
 
         }
 
-        }
 
     </table>
 </section>

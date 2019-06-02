@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVCApplication.DAO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,11 @@ namespace MVCApplication.Controllers
 {
     public class HomeController : Controller
     {
+        private DBContext db = new DBContext();
         public ActionResult Index()
         {
-            return View();
+            var myList = db.Realeses.OrderBy(x => x.ReleaseDate).ToList();
+            return View(myList);
         }
 
         public ActionResult About()
