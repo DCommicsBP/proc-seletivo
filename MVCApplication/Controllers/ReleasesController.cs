@@ -17,11 +17,31 @@ namespace MVCApplication.Controllers
         // GET: Releases
         private List<Release> Releases = new List<Release>();
         
-        public ActionResult Index()
+        public ActionResult Index(DateTime? startdate, DateTime? enddate)
         {
-            var myList = db.Realeses.OrderBy(x => x.ReleaseDate).ToList();
-            return View(myList);
+            var orders = db.Realeses.ToList();
+            var myList = db.Realeses.ToList();
+            if (startdate != null && enddate != null)
+            {
+                orders = db.Realeses
+                .Where(x => x.ReleaseDate != null
+                && x.ReleaseDate > startdate
+                && x.ReleaseDate < enddate)
+                .OrderBy(x => x.ReleaseDate).ToList();
+                Releases = orders;
+                OrderByDateConfirm(orders);
+                ViewData["orders"] = orders;
+                return View(orders);
+            }
+            else
+            {
+                myList = db.Realeses.ToList();
+                OrderByDateConfirm(myList);
+                ViewData["orders"] = myList;
+                return View(myList);
+            }
         }
+    
 
         public ActionResult OrderByDateConfirm(List<Release> releases)
         {
@@ -32,33 +52,6 @@ namespace MVCApplication.Controllers
             }
             var myList = db.Realeses.ToList();
             return View(myList);
-        }
-
-        [HttpPost]
-         [ValidateAntiForgeryToken]
-        public ActionResult OrderByDate(DateTime? startdate, DateTime? enddate)
-        {
-            var orders = db.Realeses.ToList();
-            var myList = db.Realeses.ToList();
-            if (startdate != null && enddate != null)
-            {
-               orders = db.Realeses
-               .Where(x => x.ReleaseDate != null
-               && x.ReleaseDate > startdate
-               && x.ReleaseDate < enddate)
-               .OrderBy(x => x.ReleaseDate).ToList();
-                Releases = orders;
-                OrderByDateConfirm(orders);
-                ViewData["orders"] = orders;
-                return View("IndexFilter", orders);
-            }
-            else
-            {
-                myList = db.Realeses.ToList();
-                OrderByDateConfirm(myList);
-                ViewData["orders"] = myList;
-                return View("IndexFilter", myList);
-            }
         }
 
         // GET: Releases/Details/5
