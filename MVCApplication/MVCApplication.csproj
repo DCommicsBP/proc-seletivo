@@ -220,6 +220,7 @@
     <Content Include="Views\Releases\Details.cshtml" />
     <Content Include="Views\Releases\Edit.cshtml" />
     <Content Include="Views\Releases\Index.cshtml" />
+    <Content Include="Views\Releases\IndexFilter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

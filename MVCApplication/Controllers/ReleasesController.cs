@@ -14,24 +14,52 @@ namespace MVCApplication.Controllers
     public class ReleasesController : Controller
     {
         private DBContext db = new DBContext();
-
         // GET: Releases
-        public ActionResult Index(DateTime? start, DateTime? end)
+        private List<Release> Releases = new List<Release>();
+        
+        public ActionResult Index()
         {
-            ViewBag.start = new DateTime();
-            ViewBag.end= new DateTime();
-
-            var orders = db.Realeses
-                .Where(x => x.ReleaseDate != null
-                && x.ReleaseDate > start
-                && x.ReleaseDate < end)
-                .OrderByDescending(x => x.Status)
-                .ToList();
-            ViewBag.start = new DateTime(); 
-
-            return View(orders);
+            var myList = db.Realeses.ToList();
+            return View(myList);
         }
 
+        public ActionResult OrderByDateConfirm(List<Release> releases)
+        {
+            if (releases != null)
+            {
+                var myListTwo = releases;
+                return View(myListTwo);
+            }
+            var myList = db.Realeses.ToList();
+            return View(myList);
+        }
+
+        [HttpPost]
+         [ValidateAntiForgeryToken]
+        public ActionResult OrderByDate(DateTime? startdate, DateTime? enddate)
+        {
+            var orders = db.Realeses.ToList();
+            var myList = db.Realeses.ToList();
+            if (startdate != null && enddate != null)
+            {
+               orders = db.Realeses
+               .Where(x => x.ReleaseDate != null
+               && x.ReleaseDate > startdate
+               && x.ReleaseDate < enddate)
+               .OrderBy(x => x.ReleaseDate).ToList();
+                Releases = orders;
+                OrderByDateConfirm(orders);
+                ViewData["orders"] = orders;
+                return View("IndexFilter", orders);
+            }
+            else
+            {
+                myList = db.Realeses.ToList();
+                OrderByDateConfirm(myList);
+                ViewData["orders"] = myList;
+                return View("IndexFilter", myList);
+            }
+        }
 
         // GET: Releases/Details/5
         public ActionResult Details(int? id)

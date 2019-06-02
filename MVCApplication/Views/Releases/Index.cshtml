@@ -1,13 +1,12 @@
 ﻿@model IEnumerable<MVCAplication.Models.Release>
 
 @{
-    var startD = new DateTime();
-    var endD = new DateTime();
-
-
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
+    var teste = Model;
+
+   
+   }
 
 <h2>Releases</h2>
 @using (Html.BeginForm())
@@ -15,24 +14,14 @@
     <div class="form-horizontal">
         <div class="form-group form-group-sm">
             <div class="col-md-8">
-                Filter By Date
-                <br />
-                <input type="date" class="form-control" id="start" name="start" placeholder="date initial" value="@(ViewBag.start ?? String.Empty)">            
-            </div>
-        </div>
-        <div class="form-group form-group-sm">
-            <div class="col-md-8">
-                Initial Date:  @Html.TextBox("start", ViewBag.start as string, new { @type = "date", @class = "form-control datepicker" })
-                Final Date:  @Html.TextBox("End", ViewBag.end as string, new { @id = "end", @type = "date", @class = "form-control datepicker", @value= "@ViewBag.end" })
+                <h5>Filter Date:</h5>
+                Initial Date:  <input type="date" class="form-control datepicker" id="startD" />
+                Final Date:  <input type="date" class="form-control datepicker" id="endD" />
             </div>
         </div>
         <div class="form-group-sm">
             <div class="col-md-offset-2 col-md-10">
-                @{ 
-                    startD = ViewBag.start;
-                    endD = ViewBag.end;
-                }
-                @Html.ActionLink("Submit", "Index", new { start = ViewBag.start, end = ViewBag.end })
+               <button class="btn btn-default" onclick="getByDate()">Submit</button>
 
             </div>
         </div>
@@ -46,7 +35,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table" id="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.ReleaseDate)
@@ -65,33 +54,149 @@
         </th>
         <th></th>
     </tr>
+    @{
+        var teste02 = ViewBag.orders;
+        var result = (List<MVCAplication.Models.Release>)ViewData["orders"];
 
-    @foreach (var item in Model)
+    }
+
+    @if (result != null)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReleaseDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Value)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-            </td>
-        </tr>
+        foreach (var item in result)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReleaseDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+
+        foreach (var item in Model)
+        {
+            if (item.Status.ToString() == "Pending" && item.Type.ToString() == "Saida")
+            {
+                <tr style="color: red">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReleaseDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Value)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr class="">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReleaseDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Value)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    </td>
+                </tr>
+
+            }
+
+        }
+
     }
 
 </table>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 <script>
+
+    
+
+async function getByDate() {
+
+
+        var startd = document.getElementById("startD").value;
+        var endd = document.getElementById("endD").value;
+    if (startd == null || startd == "" || endd == null || endd == "") {
+        alert("Você não pode fazer comparação entre datas  com um dos campos vazios.");
+
+        return false;
+    }
+    if (startd == null && startd == "" && endd == null && endd == "") {
+        alert("Você não pode datas sem preencher os campos");
+
+        return false;
+    }
+
+    if (startd > endd) {
+        alert("Você não pode comparar quando a data inicial for maior que a data final");
+
+    }
+        
+        await axios.post('@Url.Action("OrderByDate", "Releases")',
+            {
+                startdate: startd,
+                enddate: endd
+            }).then((response) => {
+                return false;
+
+            }).error((error) => { debugger; return false; });
+    }
+
+    var validationDate = function (date) {
+        debugger; 
+        
+        function validatioDates(start, end) {
+            validationDate(start);
+            validationDate(end);
+
+            if (start > end) {
+                alert("Você deve fornecer uma data inicial menor que a data maior, para o sistema fazer comparação");
+            }
+        }
+    }
+
 </script>
