@@ -125,6 +125,10 @@
             {
                 <td style="color:cornflowerblue;font-weight:bold">@count</td>
             }
+            @if (item.Status.ToString() == "Pending" && item.Type.ToString() == "Entrada" && item.ReleaseDate < DateTime.Now)
+            {
+                <td style="color: brown;font-weight:bold">@count</td>
+            }
 
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
